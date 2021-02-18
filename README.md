@@ -19,7 +19,7 @@ Connecté sur la machine en SSH, créez un dossier et placez-vous à l’intéri
 `mkdir Docker && cd Docker`
 
 ## Les bases de Docker :
-* Construire une image Nginx
+### Construire une image Nginx
 
 
 Créez un fichier Dockerfile et ajoutez le contenu suivant : 
@@ -59,16 +59,18 @@ REPOSITORY                   TAG       IMAGE ID       CREATED         SIZE
 monimage                     latest    d433c8e2ffde   45 hours ago    219MB
 ```
 
-* Lancer un conteneur 
+### Lancer un conteneur 
 `docker run -d monimage`
 
-* Exposer des ports
+### Exposer des ports
 `docker run -d -p 8000:80 mynginx`
+
 Nous avons exposé le port 8000 de notre host vers le port 80 de notre conteneur.
 
 Vérifions que notre conteneur est bien en écoute :
+`curl http://localhost:8000`
+
 ```
-curl http://localhost:8000
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +83,7 @@ curl http://localhost:8000
 </html>
 ```
 
-* Créer et monter des volumes
+### Créer et monter des volumes
 `docker volume create myvolume`
 
 Par défaut, les volumes sont stockés dans /var/lib/docker/volumes/
@@ -92,14 +94,13 @@ Il est nécessaire d’être root pour accéder à la sous-arborescence /var/lib
 ```
 myvolume metadata.db
 ```
-`cd /var/lib/docker/volumes/myvolume/_data`
-```
-echo "<html> Hello World ! </html>" > index.html
-```
 
+`cd /var/lib/docker/volumes/myvolume/_data`
+`echo "<html> Hello World ! </html>" > index.html`
 
 `docker run -d -p 8001:80 -v myvolume:/var/www/html mynginx`
 `curl http://localhost:8001`
+
 ```
 <html> Hello World ! </html>
 ```
