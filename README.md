@@ -93,7 +93,7 @@ Il est nécessaire d’être root pour accéder à la sous-arborescence /var/lib
 `ls /var/lib/docker/volumes`
 
 ```
-myvolume metadata.db
+metadata.db myvolume
 ```
 
 `cd /var/lib/docker/volumes/myvolume/_data`
