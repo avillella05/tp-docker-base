@@ -2,11 +2,11 @@
 *** 
 
 ## Prérequis 
-* [Virtualbox v6.1: ](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant : ](https://www.vagrantup.com/downloads)
+* [Virtualbox v6.1](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant](https://www.vagrantup.com/downloads)
 
 ## Préparation de l'environnement
-Clonez le répo :
+Clonez le repo :
 `git clone https://github.com/avillella05/tp-docker-base.git`
 
 Dans le repertoire **tp-docker-base** :
@@ -20,6 +20,8 @@ Connecté sur la machine en SSH, créez un dossier et placez-vous à l’intéri
 
 ## Les bases de Docker :
 * Construire une image Nginx
+
+
 Créez un fichier Dockerfile et ajoutez le contenu suivant : 
 
 ```
@@ -32,8 +34,8 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 Pour construire notre image nommée monimage :
+`docker build -t monimage .`
 ```
-docker build -t monimage .
 Sending build context to Docker daemon   5.12kB
 Step 1/4 : FROM ubuntu:16.04
  ---> 8185511cd5ad
@@ -80,25 +82,25 @@ curl http://localhost:8000
 ```
 
 * Créer et monter des volumes
-** Création d'un volume
 `docker volume create myvolume`
 
 Par défaut, les volumes sont stockés dans /var/lib/docker/volumes/
 
 Il est nécessaire d’être root pour accéder à la sous-arborescence /var/lib/docker
+`ls /var/lib/docker/volumes`
 
 ```
-ls /var/lib/docker/volumes
 myvolume metadata.db
-cd /var/lib/docker/volumes/myvolume/_data
+```
+`cd /var/lib/docker/volumes/myvolume/_data`
+```
 echo "<html> Hello World ! </html>" > index.html
 ```
 
-** Monter un volume dans un conteneur :
 
+`docker run -d -p 8001:80 -v myvolume:/var/www/html mynginx`
+`curl http://localhost:8001`
 ```
-$ docker run -d -p 8001:80 -v myvolume:/var/www/html mynginx
-$ curl http://localhost:8001
 <html> Hello World ! </html>
 ```
 
