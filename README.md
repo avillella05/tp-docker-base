@@ -89,6 +89,7 @@ Vérifions que notre conteneur est bien en écoute :
 Par défaut, les volumes sont stockés dans /var/lib/docker/volumes/
 
 Il est nécessaire d’être root pour accéder à la sous-arborescence /var/lib/docker
+
 `ls /var/lib/docker/volumes`
 
 ```
@@ -96,9 +97,11 @@ myvolume metadata.db
 ```
 
 `cd /var/lib/docker/volumes/myvolume/_data`
+
 `echo "<html> Hello World ! </html>" > index.html`
 
 `docker run -d -p 8001:80 -v myvolume:/var/www/html mynginx`
+
 `curl http://localhost:8001`
 
 ```
